@@ -3,13 +3,16 @@ import Head from "next/head";
 import FlavorSelector from "../components/FlavorSelector/FlavorSelector";
 import Header from "../components/Header/Header";
 import styles from "../styles/Home.module.scss";
+import { FlavorProvider } from "../flavorContext";
+import StrainsList from "../components/StrainsList/StrainsList";
 
 interface Props {
   title: string;
-  flavors: [];
+  API_KEY: string
+  flavors: [],
 }
 
-const Home: React.FC<Props> = ({ title = "Find your strain", flavors }) => {
+const Home: React.FC<Props> = ({ title = "Find your strain", flavors, API_KEY }) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -18,7 +21,11 @@ const Home: React.FC<Props> = ({ title = "Find your strain", flavors }) => {
       </Head>
 
       <Header />
-      <FlavorSelector flavors={flavors} />
+
+      <FlavorProvider>
+        <FlavorSelector flavors={flavors} />
+        <StrainsList API_KEY={API_KEY} />
+      </FlavorProvider>
 
       <main className={styles.main}></main>
 
@@ -39,6 +46,7 @@ export const getStaticProps = async () => {
   return {
     props: {
       flavors,
+      API_KEY
     },
   };
 };
