@@ -1,17 +1,16 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./StrainsList.module.scss";
-import { FlavorContext } from '../../pages/index';
+import { useFlavor } from '../../hooks/FlavorProvider';
 
 interface StrainsListProps {
   API_KEY: string;
 }
 
 const StrainsList: React.FC<StrainsListProps> = ({ API_KEY }) => {
-  const flavor = useContext(FlavorContext)
   const [strains, setStrains] = useState(null);
+  const flavor = useFlavor();
 
   useEffect(() => {
-    console.log(flavor);
     if (flavor) {
       const getStrains = async () => {
         const res = await fetch(
@@ -23,10 +22,6 @@ const StrainsList: React.FC<StrainsListProps> = ({ API_KEY }) => {
       getStrains();
     }
   }, [flavor]);
-
-  useEffect(() => {
-    console.log(strains);
-  }, [strains]);
 
   const getColorForStrainRace = (race: string) => {
     let color: string;
@@ -55,7 +50,7 @@ const StrainsList: React.FC<StrainsListProps> = ({ API_KEY }) => {
           strains.map((strain) => {
             const raceColor = getColorForStrainRace(strain.race);
             return (
-              <div className={styles.row}>
+              <div key={strain.id} className={styles.row}>
                 <div className={raceColor}>
                   <div className={styles.name}>{strain.name}</div>
                   <div className={styles.race}>{strain.race}</div>

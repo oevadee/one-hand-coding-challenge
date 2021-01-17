@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React from "react";
 import Head from "next/head";
 import FlavorSelector from "../components/FlavorSelector/FlavorSelector";
 import Header from "../components/Header/Header";
@@ -7,15 +7,11 @@ import StrainsList from "../components/StrainsList/StrainsList";
 
 interface Props {
   title: string;
-  API_KEY: string
-  flavors: [],
+  API_KEY: string;
+  flavors: [];
 }
 
-export const FlavorContext = createContext(null);
-
-const Home: React.FC<Props> = ({ title = "Find your strain", flavors, API_KEY }) => {
-  const [chosenFlavor, setChosenFlavor] = useState(null);
-
+const Home: React.FC<Props> = ({ flavors, API_KEY, title = 'Find your strain' }) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -25,12 +21,8 @@ const Home: React.FC<Props> = ({ title = "Find your strain", flavors, API_KEY })
 
       <Header />
 
-      <FlavorContext.Provider value={chosenFlavor}>
-        <FlavorSelector setChosenFlavor={setChosenFlavor} flavors={flavors} />
-        <StrainsList API_KEY={API_KEY} />
-      </FlavorContext.Provider>
-
-      <main></main>
+      <FlavorSelector flavors={flavors} />
+      <StrainsList API_KEY={API_KEY} />
     </div>
   );
 };
@@ -47,7 +39,7 @@ export const getStaticProps = async () => {
   return {
     props: {
       flavors,
-      API_KEY
+      API_KEY,
     },
   };
 };
