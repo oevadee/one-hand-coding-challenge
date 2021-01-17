@@ -1,9 +1,8 @@
-import React from "react";
+import React, { createContext, useState } from "react";
 import Head from "next/head";
 import FlavorSelector from "../components/FlavorSelector/FlavorSelector";
 import Header from "../components/Header/Header";
 import styles from "../styles/Home.module.scss";
-import { FlavorProvider } from "../flavorContext";
 import StrainsList from "../components/StrainsList/StrainsList";
 
 interface Props {
@@ -12,7 +11,11 @@ interface Props {
   flavors: [],
 }
 
+export const FlavorContext = createContext(null);
+
 const Home: React.FC<Props> = ({ title = "Find your strain", flavors, API_KEY }) => {
+  const [chosenFlavor, setChosenFlavor] = useState(null);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -22,14 +25,12 @@ const Home: React.FC<Props> = ({ title = "Find your strain", flavors, API_KEY })
 
       <Header />
 
-      <FlavorProvider>
-        <FlavorSelector flavors={flavors} />
+      <FlavorContext.Provider value={chosenFlavor}>
+        <FlavorSelector setChosenFlavor={setChosenFlavor} flavors={flavors} />
         <StrainsList API_KEY={API_KEY} />
-      </FlavorProvider>
+      </FlavorContext.Provider>
 
-      <main className={styles.main}></main>
-
-      <footer className={styles.footer}>footer</footer>
+      <main></main>
     </div>
   );
 };

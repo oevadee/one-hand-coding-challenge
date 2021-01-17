@@ -1,14 +1,12 @@
 import React from "react";
 import styles from "./FlavorSelector.module.scss";
-import { useFlavor } from '../../flavorContext';
 
 interface Props {
   flavors: [];
+  setChosenFlavor: React.Dispatch<string>
 }
 
-const FlavorSelector: React.FC<Props> = ({ flavors }) => {
-  const [setFlavor] = useFlavor();
-  
+const FlavorSelector: React.FC<Props> = ({ flavors, setChosenFlavor }) => {  
   return (
     <div className={styles.container}>
       <div className={styles.heading}>
@@ -20,7 +18,7 @@ const FlavorSelector: React.FC<Props> = ({ flavors }) => {
         </small>
         <label htmlFor="flavors">Choose a flavor</label>
         <div className={styles.customSelector}>
-          <select id="flavors" name="flavors" onChange={(e) => setFlavor(e.target.value)}>
+          <select id="flavors" name="flavors" onChange={(e) => setChosenFlavor(e.target.value)}>
              {flavors.map((flavor) => (
                <option key={flavor} value={flavor}>
                  {flavor}

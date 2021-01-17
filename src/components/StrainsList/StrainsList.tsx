@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styles from "./StrainsList.module.scss";
-import { useFlavor } from "../../flavorContext";
+import { FlavorContext } from '../../pages/index';
 
 interface StrainsListProps {
   API_KEY: string;
 }
 
 const StrainsList: React.FC<StrainsListProps> = ({ API_KEY }) => {
-  const [setFlavor, flavor] = useFlavor();
+  const flavor = useContext(FlavorContext)
   const [strains, setStrains] = useState(null);
 
   useEffect(() => {
