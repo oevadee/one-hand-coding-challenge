@@ -1,0 +1,71 @@
+@import '../../styles/_variables';
+
+.container {
+  background-color: $background-color-secondary;
+  border-radius: 15px;
+  margin: 10px;
+}
+
+.heading {
+  height: 60px;
+  border-bottom: $border;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+
+  h2 {
+    font-size: 1.2rem;
+  }
+}
+
+.selectorContainer {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+
+  small {
+    color: $text-color-secondary;
+    margin-bottom: 20px;
+  }
+
+  label {
+    margin-bottom: 10px;
+  }
+
+}
+
+.customSelector {
+  position: relative;
+  height: 40px;
+
+  select {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    border: $border;
+    padding-left: 10px;
+    background: transparent;
+    color: $text-color;
+    outline: none;
+    position: relative;
+    -moz-appearance: none;
+    /* Firefox */
+    -webkit-appearance: none;
+    /* Safari and Chrome */
+    appearance: none;
+    z-index: 2;
+
+    &:focus {
+      border: $outline;
+    }
+  }
+
+  img {
+    position: absolute;
+    filter: grayscale(0.4) invert(1);
+    top: 14px;
+    right: 15px;
+  }
+
+}

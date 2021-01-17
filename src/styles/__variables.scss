@@ -1,3 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
 
-$font-family: 'Lato', sans-serif;
+$font-family: 'Lato',
+sans-serif;
+
+$background-color: rgb(15, 15, 15);
+$background-color-secondary: rgb(26, 27, 30);
+
+$text-color: rgb(212, 212, 212);
+$text-color-secondary: rgb(96, 97, 100);
+$link-color: rgb(45, 101, 213);
+
+$border: 2px solid rgb(33, 34, 38);
+$outline: 2px solid rgb(102, 102, 105);

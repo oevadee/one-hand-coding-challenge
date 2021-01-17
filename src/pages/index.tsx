@@ -1,7 +1,15 @@
+import React from "react";
 import Head from "next/head";
+import FlavorSelector from "../components/FlavorSelector/FlavorSelector";
+import Header from "../components/Header/Header";
 import styles from "../styles/Home.module.scss";
 
-export default function Home({ title = "Find your strain", flavors }) {
+interface Props {
+  title: string;
+  flavors: [];
+}
+
+const Home: React.FC<Props> = ({ title = "Find your strain", flavors }) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -9,29 +17,24 @@ export default function Home({ title = "Find your strain", flavors }) {
         <link rel="icon" href="/capsules.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <label htmlFor="flavors">Choose a flavor:</label>
-        <select id="flavors" name="flavors">
-          {flavors.map(flavor => (
-            <option value={flavor}>{flavor}</option>
-          ))}
-        </select>
-      </main>
+      <Header />
+      <FlavorSelector flavors={flavors} />
+
+      <main className={styles.main}></main>
 
       <footer className={styles.footer}>footer</footer>
     </div>
   );
-}
+};
 
-const API_KEY = process.env.API_KEY;
+export default Home;
 
 export const getStaticProps = async () => {
+  const API_KEY = process.env.API_KEY;
   const res = await fetch(
     `http://strainapi.evanbusse.com/${API_KEY}/searchdata/flavors`
   );
-  const flavors = await res.json();
-
-  console.log(flavors);
+  const flavors: [] = await res.json();
 
   return {
     props: {
